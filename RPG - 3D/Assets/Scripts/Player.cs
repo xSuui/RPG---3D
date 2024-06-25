@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     List<Transform> EnemiesList = new List<Transform>();
     public float ColliderRadius;
 
+    public float EnemyDamage = 25f;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -35,6 +37,50 @@ public class Player : MonoBehaviour
     }
 
     void Move()
+    {
+        if (controller.isGrounded)
+        {
+            if (Input.GetKey(KeyCode.W))
+            {
+                if (!anim.GetBool("attacking"))
+                {
+                    anim.SetBool("walking", true);
+                    anim.SetInteger("transition", 1);
+                    MoveDirection = Vector3.forward * Speed;
+                    MoveDirection = transform.TransformDirection(MoveDirection);
+                }
+                else
+                {
+                    anim.SetBool("walking", false);
+                    anim.SetInteger("transition", 0);
+                    MoveDirection = Vector3.zero;
+                    StartCoroutine(Attack(1));
+                }
+            }
+            else
+            {
+                // Ensuring that movement stops when W is not pressed
+                anim.SetBool("walking", false);
+                anim.SetInteger("transition", 0);
+                MoveDirection = Vector3.zero;
+            }
+
+            if (Input.GetKeyUp(KeyCode.W))
+            {
+                anim.SetBool("walking", false);
+                anim.SetInteger("transition", 0);
+                MoveDirection = Vector3.zero;
+            }
+        }
+
+        Rotation += Input.GetAxis("Horizontal") * RotSpeed * Time.deltaTime;
+        transform.eulerAngles = new Vector3(0, Rotation, 0);
+
+        MoveDirection.y -= Gravity * Time.deltaTime;
+        controller.Move(MoveDirection * Time.deltaTime);
+    }
+
+    /*void Move()
     {
          if(controller.isGrounded)
         {
@@ -70,7 +116,7 @@ public class Player : MonoBehaviour
 
         MoveDirection.y -= Gravity * Time.deltaTime;
         controller.Move(MoveDirection * Time.deltaTime);
-    }
+    }*/
 
     void GetMouseInput()
     {
@@ -99,20 +145,23 @@ public class Player : MonoBehaviour
             IsReady = true;
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
-            yield return new WaitForSeconds(1.3f);
+
+            yield return new WaitForSeconds(0.5f);
 
             GetEnemiesRange();
 
-            foreach(Transform enemies in EnemiesList)
+            foreach (Transform enemies in EnemiesList)
             {
                 // exec dano enemie
                 Enemy enemy = enemies.GetComponent<Enemy>();
 
-                if(enemy != null)
+                if (enemy != null)
                 {
-                    enemy.GetHit();
+                    enemy.GetHit(EnemyDamage);
                 }
             }
+
+            yield return new WaitForSeconds(0.8f);
 
             anim.SetInteger("transition", transitionValue);
             anim.SetBool("attacking", false);
