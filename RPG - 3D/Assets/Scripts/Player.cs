@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
 
     bool IsReady;
 
+    List<Transform> EnemiesList = new List<Transform>();
+    public float ColliderRadius;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,9 +100,41 @@ public class Player : MonoBehaviour
             anim.SetBool("attacking", true);
             anim.SetInteger("transition", 2);
             yield return new WaitForSeconds(1.3f);
+
+            GetEnemiesRange();
+
+            foreach(Transform enemies in EnemiesList)
+            {
+                // exec dano enemie
+                Enemy enemy = enemies.GetComponent<Enemy>();
+
+                if(enemy != null)
+                {
+                    enemy.GetHit();
+                }
+            }
+
             anim.SetInteger("transition", transitionValue);
             anim.SetBool("attacking", false);
             IsReady = false;
         }
+    }
+
+    void GetEnemiesRange()
+    {
+        EnemiesList.Clear();
+        foreach (Collider c in Physics.OverlapSphere((transform.position + transform.forward * ColliderRadius), ColliderRadius))
+        {
+            if(c.gameObject.CompareTag("Enemy"))
+            {
+                EnemiesList.Add(c.transform);
+            }
+        }
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position + transform.forward, ColliderRadius);
     }
 }
