@@ -3851,14 +3851,6 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1523225140}
-    - target: {fileID: 500655231, guid: 9943d6d0c0da9494192b16ce9af80dd0, type: 3}
-      propertyPath: PlayerIsAlive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 500655231, guid: 9943d6d0c0da9494192b16ce9af80dd0, type: 3}
-      propertyPath: ColliderRadius
-      value: 2.2
-      objectReference: {fileID: 0}
     - target: {fileID: 6007530612844042106, guid: 9943d6d0c0da9494192b16ce9af80dd0, type: 3}
       propertyPath: m_Name
       value: Skeleton
@@ -3963,34 +3955,6 @@ PrefabInstance:
     - target: {fileID: 8676628039188919757, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188919757, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951912, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: Speed
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951912, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: RotSpeed
-      value: 220
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951912, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: EnemyDamage
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951912, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: CurrentHealth
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951912, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: ColliderRadius
-      value: 1.02
-      objectReference: {fileID: 0}
-    - target: {fileID: 8676628039188951915, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f0505e7f74a8b254eb554d182151840c, type: 3}
