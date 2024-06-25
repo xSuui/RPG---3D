@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public float TotalHealth = 100;
+    public float CurrentHealth;
 
     public float Speed;
     public float RotSpeed;
@@ -22,11 +24,16 @@ public class Player : MonoBehaviour
 
     public float EnemyDamage = 25f;
 
+    public bool IsAlive;
+
     // Start is called before the first frame update
     void Start()
     {
         controller = GetComponent<CharacterController>();
         anim = GetComponent<Animator>();
+
+        CurrentHealth = TotalHealth;
+        IsAlive = true;
     }
 
     // Update is called once per frame
@@ -185,5 +192,27 @@ public class Player : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position + transform.forward, ColliderRadius);
+    }
+
+    public void GetHit(float Damage)
+    {
+        CurrentHealth -= Damage;
+        if (CurrentHealth > 0)
+        {
+            anim.SetInteger("transition", 3);
+            StartCoroutine(RecoveryFromHit());
+        }
+        else
+        {
+            anim.SetInteger("transition", 4);
+            IsAlive = false;
+            
+        }
+    }
+
+    IEnumerator RecoveryFromHit()
+    {
+        yield return new WaitForSeconds(1.1f);
+        anim.SetInteger("transition", 0);
     }
 }

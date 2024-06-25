@@ -17,7 +17,10 @@ public class Enemy : MonoBehaviour
     public Transform target;
     public NavMeshAgent agent;
 
+    public float ColliderRadius;
+
     bool IsReady;
+    public bool PlayerIsAlive;
 
     void Start()
     {
@@ -26,29 +29,60 @@ public class Enemy : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
 
         CurrentHealth = TotalHealth;
+        PlayerIsAlive = true;
     }
 
     void Update()
     {
-        float distance = Vector3.Distance(target.position, transform.position);
-
-        if(distance <= lookRadius)
+        if(CurrentHealth > 0)
         {
-            agent.isStopped = false;
-            if(!anim.GetBool("attacking"))
-            {
-                agent.SetDestination(target.position);
-                anim.SetInteger("transition", 2);
-                anim.SetBool("walking", true);
-            }
+            float distance = Vector3.Distance(target.position, transform.position);
 
-            if (distance <= agent.stoppingDistance)
+            if(distance <= lookRadius)
             {
-                StartCoroutine(Attack());
-                LookTarget();
+                agent.isStopped = false;
+                if(!anim.GetBool("attacking"))
+                {
+                    agent.SetDestination(target.position);
+                    anim.SetInteger("transition", 2);
+                    anim.SetBool("walking", true);
+                }
+
+                if (distance <= agent.stoppingDistance)
+                {
+                    StartCoroutine(Attack());
+                    LookTarget();
+                }
+
+                if (distance >= agent.stoppingDistance)
+                {
+                    anim.SetBool("attacking", false);
+                }
+            }
+            else
+            {
+                anim.SetInteger("transition", 0);
+                anim.SetBool("walking", false);
+                anim.SetBool("attacking", false);
+                agent.isStopped = true;
             }
         }
-        else
+    }
+
+    IEnumerator Attack()
+    {
+        if (!IsReady && PlayerIsAlive)
+        {
+            IsReady = true;
+            anim.SetBool("attacking", true);
+            anim.SetBool("walking", false);
+            anim.SetInteger("transition", 1);
+            yield return new WaitForSeconds(1f);
+            GetEnemy();
+            yield return new WaitForSeconds(1.7f);
+            IsReady = false;
+        }
+        if(!PlayerIsAlive)
         {
             anim.SetInteger("transition", 0);
             anim.SetBool("walking", false);
@@ -57,16 +91,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    IEnumerator Attack()
+    void GetEnemy()
     {
-        if (!IsReady)
+        foreach (Collider c in Physics.OverlapSphere((transform.position + transform.forward * ColliderRadius), ColliderRadius))
         {
-            IsReady = true;
-            anim.SetBool("attacking", true);
-            anim.SetBool("walking", false);
-            anim.SetInteger("transition", 1);
-            yield return new WaitForSeconds(1f);
-            IsReady = false;
+            if (c.gameObject.CompareTag("Player"))
+            {
+                c.gameObject.GetComponent<Player>().GetHit(25f);
+                PlayerIsAlive = c.gameObject.GetComponent<Player>().IsAlive;
+            }
         }
     }
 
@@ -104,12 +137,4 @@ public class Enemy : MonoBehaviour
         anim.SetInteger("transition", 0);
     }
 
-    void Die()
-    {
-        if(CurrentHealth <= 0)
-        {
-            anim.SetInteger("transition", 4);
-            //Destroy(gameObject, 2f);
-        }
-    }
 }
