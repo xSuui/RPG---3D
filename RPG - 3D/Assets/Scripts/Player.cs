@@ -62,6 +62,7 @@ public class Player : MonoBehaviour
                     anim.SetInteger("transition", 0);
                     MoveDirection = Vector3.zero;
                     //StartCoroutine(Attack(1));
+                    
                 }
             }
             else

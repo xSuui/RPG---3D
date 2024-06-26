@@ -8,6 +8,7 @@ public class Chest : MonoBehaviour
     public float ColliderRadius;
     public bool IsOpened;
 
+    public List<Item> Items = new List<Item>();
 
     void Start()
     {
@@ -22,18 +23,26 @@ public class Chest : MonoBehaviour
 
     void GetPlayer()
     {
-        foreach (Collider c in Physics.OverlapSphere((transform.position + transform.forward * ColliderRadius), ColliderRadius))
+        if(!IsOpened)
         {
-            if (c.gameObject.CompareTag("Player"))
+            foreach (Collider c in Physics.OverlapSphere((transform.position + transform.forward * ColliderRadius), ColliderRadius))
             {
-                if(Input.GetMouseButtonDown(0))
-                OpenChest();
+                if (c.gameObject.CompareTag("Player"))
+                {
+                    if(Input.GetMouseButtonDown(0))
+                    OpenChest();
+                }
             }
         }
     }
 
     void OpenChest()
     {
+        foreach(Item i in Items)
+        {
+            i.GetAction();
+        }
         anim.SetTrigger("open");
+        IsOpened = true;
     }
 }
