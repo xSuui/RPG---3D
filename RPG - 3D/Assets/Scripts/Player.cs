@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         GetMouseInput();
     }
 
-    void Move()
+    /*void Move()
     {
         if (controller.isGrounded)
         {
@@ -86,9 +86,9 @@ public class Player : MonoBehaviour
 
         MoveDirection.y -= Gravity * Time.deltaTime;
         controller.Move(MoveDirection * Time.deltaTime);
-    }
+    }*/
 
-    /*void Move()
+    void Move()
     {
          if(controller.isGrounded)
         {
@@ -107,7 +107,7 @@ public class Player : MonoBehaviour
                     anim.SetBool("walking", false);
                     anim.SetInteger("transition", 0);
                     MoveDirection = Vector3.zero;
-                    StartCoroutine(Attack(1));
+                    //StartCoroutine(Attack(1));
                 }
             }
 
@@ -124,7 +124,7 @@ public class Player : MonoBehaviour
 
         MoveDirection.y -= Gravity * Time.deltaTime;
         controller.Move(MoveDirection * Time.deltaTime);
-    }*/
+    }
 
     void GetMouseInput()
     {
