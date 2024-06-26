@@ -29,12 +29,17 @@ public class Item : ScriptableObject
 
     public SlotsType SlotType;
 
+    public Player player;
+
     public void GetAction()
     {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
         switch(ItemType)
         {
             case Type.Potion:
-            Debug.Log("Health +" + Value);
+            //Debug.Log("Health +" + Value);
+            player.IncreaseStats(Value, 0f);
             break;
 
             case Type.Elixir:
@@ -42,8 +47,31 @@ public class Item : ScriptableObject
             break;
 
             case Type.Crystal:
-            Debug.Log("Crystal +" + Value);
+            //Debug.Log("Crystal +" + Value);
+            player.IncreaseStats(0f, Value);
             break;
+        }
+    }
+
+    public void RemoveStats()
+    {
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+
+        switch (ItemType)
+        {
+            case Type.Potion:
+                //Debug.Log("Health +" + Value);
+                player.DecreaseStats(Value, 0f);
+                break;
+
+            case Type.Elixir:
+                Debug.Log("Elixir +" + Value);
+                break;
+
+            case Type.Crystal:
+                //Debug.Log("Crystal +" + Value);
+                player.DecreaseStats(0f, Value);
+                break;
         }
     }
 }
