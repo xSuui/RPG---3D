@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 846cd04923df9ed4b8956bd9767a5f83, type: 3}
   m_Name: Elixir
   m_EditorClassIdentifier: 
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 6592b916f86b19e428db6f6847c7b6dd, type: 3}
   Name: Elixir
   Value: 20
   ItemType: 1
+  SlotType: 2

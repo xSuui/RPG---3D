@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 846cd04923df9ed4b8956bd9767a5f83, type: 3}
-  m_Name: Crystal
+  m_Name: Shield
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: e7d29a79bc7fae248887c8a08a160303, type: 3}
-  Name: Crystal
-  Value: 10
-  ItemType: 2
-  SlotType: 0
+  icon: {fileID: 21300000, guid: b97c91e8b348f3f4ebdc11f5c82182cd, type: 3}
+  Name: Elixir
+  Value: 20
+  ItemType: 1
+  SlotType: 2

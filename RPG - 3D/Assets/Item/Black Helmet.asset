@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 846cd04923df9ed4b8956bd9767a5f83, type: 3}
-  m_Name: Crystal
+  m_Name: Black Helmet
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: e7d29a79bc7fae248887c8a08a160303, type: 3}
-  Name: Crystal
+  icon: {fileID: 21300000, guid: fd6e4fc32c78509458fc45ea4a478ba8, type: 3}
+  Name: Black Helmet
   Value: 10
   ItemType: 2
   SlotType: 0
