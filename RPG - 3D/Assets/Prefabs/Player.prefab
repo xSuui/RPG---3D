@@ -648,6 +648,7 @@ MonoBehaviour:
   ColliderRadius: 1.68
   EnemyDamage: 100
   IsAlive: 0
+  healthBar: {fileID: 0}
 --- !u!1 &8676628039188919759
 GameObject:
   m_ObjectHideFlags: 0

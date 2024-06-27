@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -26,6 +27,8 @@ public class Player : MonoBehaviour
     public float EnemyDamage = 25f;
 
     public bool IsAlive;
+
+    public Image healthBar;
 
     // Start is called before the first frame update
     void Start()
@@ -202,6 +205,9 @@ public class Player : MonoBehaviour
     public void GetHit(float Damage)
     {
         CurrentHealth -= Damage;
+
+        healthBar.fillAmount = CurrentHealth / TotalHealth;
+
         if (CurrentHealth > 0)
         {
             StopCoroutine("Attack");
