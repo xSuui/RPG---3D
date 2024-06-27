@@ -1579,6 +1579,11 @@ MonoBehaviour:
   PlayerIsAlive: 0
   healthBar: {fileID: 1031602486}
   canvasBar: {fileID: 1793128072}
+  pathPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  currentPathIndex: 0
 --- !u!54 &4430264039271693865
 Rigidbody:
   m_ObjectHideFlags: 0
